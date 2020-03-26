@@ -10715,10 +10715,13 @@ function run() {
             const PRTitle = pullRequest.title;
             const PRUrl = pullRequest.html_url;
             console.log(`Starting action with project:${project} storyPoints:${storyPoints} host:${host}`);
-            const url = yield jira_1.createNewJira(host, project, parseInt(storyPoints), PRTitle, PRUrl);
-            console.log("url out of create", url);
-            if (url) {
+            const key = yield jira_1.createNewJira(host, project, parseInt(storyPoints), PRTitle, PRUrl);
+            if (key) {
+                const url = `https://${host}/browse/${key}`;
                 core.setOutput("url", url);
+            }
+            else {
+                core.setFailed("Did not generate a Jira URL");
             }
         }
         catch (error) {
