@@ -45,13 +45,18 @@ export const createNewJira = async (
       }
     });
 
+    console.log("Create issue result:", createIssueResult)
+
     if (createIssueResult.status === 200) {
       core.debug("Create Jira was successful");
-      console.log(createIssueResult)
       return "url";
+    } else {
+      core.setFailed(
+        `Unable to create Jira. Status: ${createIssueResult.status}`
+      );
     }
   } catch (e) {
-    console.log("Error creating issue", e);
+    core.setFailed(`Unable to create Jira. Error: ${e}`);
   }
 };
 
@@ -72,9 +77,7 @@ const getCurrentSprint = async (project: string, jiraClient: JiraClient) => {
     });
 
     if (allSprintResults.values && allSprintResults.values[0]) {
-      const sprintId = parseInt(allSprintResults.values[0].id);
-      console.log(sprintId);
-      return sprintId;
+      return parseInt(allSprintResults.values[0].id);
     }
   }
 

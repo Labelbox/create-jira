@@ -10716,6 +10716,7 @@ function run() {
             const PRUrl = pullRequest.html_url;
             console.log(`Starting action with project:${project} storyPoints:${storyPoints} host:${host}`);
             const url = yield jira_1.createNewJira(host, project, parseInt(storyPoints), PRTitle, PRUrl);
+            console.log("url out of create", url);
             if (url) {
                 core.setOutput("url", url);
             }
@@ -10880,14 +10881,17 @@ exports.createNewJira = (host, project, storyPoints, PRTitle, PRUrl) => __awaite
                 customfield_10010: currentSprint // Sprint
             }
         });
+        console.log("Create issue result:", createIssueResult);
         if (createIssueResult.status === 200) {
             core.debug("Create Jira was successful");
-            console.log(createIssueResult);
             return "url";
+        }
+        else {
+            core.setFailed(`Unable to create Jira. Status: ${createIssueResult.status}`);
         }
     }
     catch (e) {
-        console.log("Error creating issue", e);
+        core.setFailed(`Unable to create Jira. Error: ${e}`);
     }
 });
 const getCurrentSprint = (project, jiraClient) => __awaiter(void 0, void 0, void 0, function* () {
@@ -10904,9 +10908,7 @@ const getCurrentSprint = (project, jiraClient) => __awaiter(void 0, void 0, void
             state: "active"
         });
         if (allSprintResults.values && allSprintResults.values[0]) {
-            const sprintId = parseInt(allSprintResults.values[0].id);
-            console.log(sprintId);
-            return sprintId;
+            return parseInt(allSprintResults.values[0].id);
         }
     }
     return null;

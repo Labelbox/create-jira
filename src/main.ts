@@ -42,6 +42,7 @@ async function run(): Promise<void> {
       PRTitle,
       PRUrl
     );
+    console.log("url out of create", url);
     if (url) {
       core.setOutput("url", url);
     }
