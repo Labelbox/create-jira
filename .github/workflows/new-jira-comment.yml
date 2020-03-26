@@ -6,13 +6,6 @@ jobs:
   new-jira:
     runs-on: ubuntu-latest
     steps:
-      - name: Add reaction
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
-          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
-          reaction-type: hooray
       - name: "Check out repository"
         uses: actions/checkout@v2
       - name: "Run local create-jira action"
@@ -25,7 +18,10 @@ jobs:
           host: "labelbox.atlassian.net"
           project: ${{ github.event.client_payload.slash_command.arg1 }}
           story-points: ${{ github.event.client_payload.slash_command.arg2 }}
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+      - name: Add reaction
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          reaction-type: hooray

@@ -6,7 +6,7 @@ async function run(): Promise<void> {
   try {
     const project = core.getInput("project");
     const storyPoints = core.getInput("story-points");
-    const domain = core.getInput("host");
+    const host = core.getInput("host");
 
     // Make sure we have inputs
     if (
@@ -25,14 +25,18 @@ async function run(): Promise<void> {
     const pullRequest = github.context.payload.client_payload.pull_request;
     if (!pullRequest) {
       core.setFailed("Error: this action is only supported for a pull request");
+      return;
     }
 
+    const PRTitle = pullRequest.title;
+    const PRUrl = pullRequest.html_url;
+
     console.log(
-      `Starting action with project:${project} storyPoints:${storyPoints} host:${domain}`
+      `Starting action with project:${project} storyPoints:${storyPoints} host:${host}`
     );
     console.log("Pull Request", pullRequest);
 
-    // await createNewJira(project, parseInt(storyPoints));
+    await createNewJira(host, project, parseInt(storyPoints), PRTitle, PRUrl);
   } catch (error) {
     core.setFailed(error.message);
   }

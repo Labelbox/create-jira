@@ -11,7 +11,9 @@ const jiraToken = process.env.JIRA_TOKEN;
 export const createNewJira = async (
   host: string,
   project: string,
-  storyPoints: number
+  storyPoints: number,
+  PRTitle: string,
+  PRUrl: string
 ) => {
   core.debug(
     `Creating new jira for project:${project} and story points:${storyPoints}`
@@ -33,8 +35,8 @@ export const createNewJira = async (
         project: {
           key: project.toUpperCase()
         },
-        summary: "My summary",
-        description: "My description",
+        summary: PRTitle,
+        description: `This Jira is tracking the work from the following PR:\n${PRUrl}`,
         issuetype: {
           name: "Story"
         },
