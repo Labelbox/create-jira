@@ -1,13 +1,16 @@
-name: TypeScript Container Action Template
-description: Template to create a GitHub container action in Node.js with TypeScript
-author: kevinpollet <pollet.kevin@gmail.com>
-branding:
-  icon: book-open
-  color: blue
+name: 'Create Jira'
+description: 'Creates a new Jira issue in Labelbox Jira account'
+author: 'Labelbox'
 inputs:
-  name:
+  host:
+    description: 'The Jira host'
     required: true
-    description: Name to greet
+  project:
+    description: 'The project where the issue should be created'
+    required: true
+  story-points:
+    description: 'The number of story points the issue should have'
+    required: true
 runs:
-  using: docker
-  image: Dockerfile
+  using: 'node12'
+  main: 'dist/index.js'
