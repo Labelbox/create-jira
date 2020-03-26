@@ -11,6 +11,10 @@ inputs:
   story-points:
     description: 'The number of story points the issue should have'
     required: true
+outputs:
+  url:
+    description: 'The url of the Jira that was created'
+
 runs:
   using: 'node12'
   main: 'dist/index.js'

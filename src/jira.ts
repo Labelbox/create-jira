@@ -14,7 +14,7 @@ export const createNewJira = async (
   storyPoints: number,
   PRTitle: string,
   PRUrl: string
-) => {
+): Promise<string | undefined> => {
   core.debug(
     `Creating new jira for project:${project} and story points:${storyPoints}`
   );
@@ -47,6 +47,8 @@ export const createNewJira = async (
 
     if (createIssueResult.status === 200) {
       core.debug("Create Jira was successful");
+      console.log(createIssueResult)
+      return "url";
     }
   } catch (e) {
     console.log("Error creating issue", e);

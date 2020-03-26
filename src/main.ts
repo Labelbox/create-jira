@@ -34,9 +34,17 @@ async function run(): Promise<void> {
     console.log(
       `Starting action with project:${project} storyPoints:${storyPoints} host:${host}`
     );
-    console.log("Pull Request", pullRequest);
 
-    await createNewJira(host, project, parseInt(storyPoints), PRTitle, PRUrl);
+    const url = await createNewJira(
+      host,
+      project,
+      parseInt(storyPoints),
+      PRTitle,
+      PRUrl
+    );
+    if (url) {
+      core.setOutput("url", url);
+    }
   } catch (error) {
     core.setFailed(error.message);
   }

@@ -10715,8 +10715,10 @@ function run() {
             const PRTitle = pullRequest.title;
             const PRUrl = pullRequest.html_url;
             console.log(`Starting action with project:${project} storyPoints:${storyPoints} host:${host}`);
-            console.log("Pull Request", pullRequest);
-            yield jira_1.createNewJira(host, project, parseInt(storyPoints), PRTitle, PRUrl);
+            const url = yield jira_1.createNewJira(host, project, parseInt(storyPoints), PRTitle, PRUrl);
+            if (url) {
+                core.setOutput("url", url);
+            }
         }
         catch (error) {
             core.setFailed(error.message);
@@ -10880,6 +10882,8 @@ exports.createNewJira = (host, project, storyPoints, PRTitle, PRUrl) => __awaite
         });
         if (createIssueResult.status === 200) {
             core.debug("Create Jira was successful");
+            console.log(createIssueResult);
+            return "url";
         }
     }
     catch (e) {
