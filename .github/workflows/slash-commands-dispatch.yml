@@ -1,7 +1,7 @@
 name: Slash Command Dispatch
-  on:
-    issue_comment:
-      types: [created]
+on:
+  issue_comment:
+    types: [created]
 jobs:
   slash-commands-dispatch:
     runs-on: ubuntu-latest
