@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
       - name: "Run local create-jira action"
         id: create-jira
-        uses: ./.github/actions/create-jira
+        uses: ./
         env:
           JIRA_EMAIL: "${{ secrets.JIRA_EMAIL }}"
           JIRA_TOKEN: "${{ secrets.JIRA_TOKEN }}"
