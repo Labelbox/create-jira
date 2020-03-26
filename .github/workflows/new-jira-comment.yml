@@ -25,6 +25,7 @@ jobs:
           host: "labelbox.atlassian.net"
           project: ${{ github.event.client_payload.slash_command.arg1 }}
           story-points: ${{ github.event.client_payload.slash_command.arg2 }}
-      - name: "Output client payload"
-        run: echo ${{ toJson(github.event.client_payload) }}
-
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+          run: echo "$GITHUB_CONTEXT"
