@@ -45,11 +45,10 @@ export const createNewJira = async (
       }
     });
 
-    console.log("Create issue result:", createIssueResult)
-
-    if (createIssueResult.status === 200) {
+    const key = createIssueResult.key;
+    if (key) {
       core.debug("Create Jira was successful");
-      return "url";
+      return key;
     } else {
       core.setFailed(
         `Unable to create Jira. Status: ${createIssueResult.status}`
