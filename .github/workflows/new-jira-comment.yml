@@ -1,8 +1,7 @@
-name: "New Jira comment"
+name: New Jira comment
 on:
   repository_dispatch:
-    types: [new-jira]
-    
+    types: [new-jira-command]
 jobs:
   new-jira:
     runs-on: ubuntu-latest
