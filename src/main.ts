@@ -8,6 +8,12 @@ async function run(): Promise<void> {
     const storyPoints = core.getInput("story-points");
     const domain = core.getInput("host");
 
+    if (project.length === 0 || storyPoints.length === 0) {
+      core.setFailed(
+        "Error: project and story-points are both required inputs and must not be empty"
+      );
+    }
+
     console.log(
       `Starting action with project:${project} storyPoints:${storyPoints} host:${domain}`
     );
