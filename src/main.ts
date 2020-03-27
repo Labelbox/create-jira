@@ -35,20 +35,20 @@ async function run(): Promise<void> {
       `Starting action with project:${project} storyPoints:${storyPoints} host:${host}`
     );
 
-    const key = await createNewJira(
-      host,
-      project,
-      parseInt(storyPoints),
-      PRTitle,
-      PRUrl
-    );
-
-    if (key) {
-      const url = `https://${host}/browse/${key}`;
-      core.setOutput("url", url);
-    } else {
-      core.setFailed("Did not generate a Jira URL");
-    }
+    // const key = await createNewJira(
+    //   host,
+    //   project,
+    //   parseInt(storyPoints),
+    //   PRTitle,
+    //   PRUrl
+    // );
+    //
+    // if (key) {
+    //   const url = `https://${host}/browse/${key}`;
+    //   core.setOutput("url", url);
+    // } else {
+    //   core.setFailed("Did not generate a Jira URL");
+    // }
   } catch (error) {
     core.setFailed(error.message);
   }
