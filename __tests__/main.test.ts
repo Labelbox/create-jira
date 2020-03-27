@@ -1,5 +1,5 @@
 import { createNewJira } from '../src/jira';
 
 test('Test Jira', async () => {
-  await createNewJira('eng', 5);
+  await createNewJira('labelbox.atlassian.net', 'eng', 5, "Test Title", "Test URL");
 });
