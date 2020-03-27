@@ -21,6 +21,12 @@ async function run(): Promise<void> {
       return;
     }
 
+    const numericStoryPoints = parseInt(storyPoints);
+    if (isNaN(numericStoryPoints)) {
+      core.setFailed("Error: story-points must be a number");
+      return;
+    }
+
     // Make sure this is only for a pull request
     const pullRequest = github.context.payload.client_payload.pull_request;
     if (!pullRequest) {
@@ -38,7 +44,7 @@ async function run(): Promise<void> {
     const key = await createNewJira(
       host,
       project,
-      parseInt(storyPoints),
+      numericStoryPoints,
       PRTitle,
       PRUrl
     );
