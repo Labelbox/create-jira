@@ -16,7 +16,7 @@
   "author": "Labelbox",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.0",
+    "@actions/core": "^1.2.6",
     "@actions/github": "^2.1.1",
     "@types/request": "^2.48.4",
     "jira-connector": "^3.1.0"
